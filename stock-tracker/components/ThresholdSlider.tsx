@@ -33,7 +33,7 @@ export default function ThresholdSlider({ value, onChange }: ThresholdSliderProp
         step={0.5}
         value={local}
         onChange={handleChange}
-        className="h-1.5 w-40 cursor-pointer accent-blue-500"
+        className="w-40 cursor-pointer"
       />
     </div>
   );

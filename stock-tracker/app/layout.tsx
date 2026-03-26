@@ -30,11 +30,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gray-950 text-white">
+      <body className="min-h-full flex flex-col bg-[#030712] text-white">
         <Auth0Provider>
           <Navbar />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-white/8 py-6 text-center text-xs text-gray-600">
+          <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-gray-600">
             BluePulse — Data provided by Finnhub, Alpha Vantage &amp; Polygon.io.
             Not financial advice.
           </footer>

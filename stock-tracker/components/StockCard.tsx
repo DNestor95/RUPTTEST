@@ -29,7 +29,7 @@ export default function StockCard({ stock }: StockCardProps) {
 
   return (
     <Link href={`/stock/${stock.ticker}`}>
-      <div className="group relative flex flex-col gap-4 rounded-xl border border-white/8 bg-gray-900/60 p-5 backdrop-blur-sm transition-all hover:border-blue-500/40 hover:bg-gray-900/90 hover:shadow-lg hover:shadow-blue-900/20">
+      <div className="group relative flex flex-col gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5 backdrop-blur-sm transition-all duration-200 hover:border-blue-500/30 hover:bg-white/[0.06] hover:shadow-xl hover:shadow-blue-950/40">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div>
@@ -55,7 +55,7 @@ export default function StockCard({ stock }: StockCardProps) {
             <p className="text-2xl font-bold text-white">${fmt(stock.price)}</p>
             <p
               className={clsx(
-                "flex items-center gap-1 text-sm font-semibold",
+                "mt-0.5 flex items-center gap-1 text-sm font-semibold",
                 positive ? "text-emerald-400" : "text-red-400"
               )}
             >
@@ -72,7 +72,7 @@ export default function StockCard({ stock }: StockCardProps) {
         </div>
 
         {/* Fundamentals row */}
-        <div className="grid grid-cols-3 gap-2 border-t border-white/6 pt-3 text-center">
+        <div className="grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-3 text-center">
           <div>
             <p className="text-xs text-gray-500">P/E</p>
             <p className="text-xs font-medium text-gray-200">

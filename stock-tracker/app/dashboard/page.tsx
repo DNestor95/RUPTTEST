@@ -12,10 +12,10 @@ export default async function DashboardPage() {
   const user = session.user;
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <div className="mb-8 flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white">
-          <User className="h-6 w-6" />
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/30">
+          <User className="h-7 w-7" />
         </div>
         <div>
           <h1 className="text-2xl font-bold text-white">
@@ -26,7 +26,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Settings card */}
-      <div className="rounded-xl border border-white/8 bg-gray-900/60 p-6">
+      <div className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-6">
         <div className="flex items-center gap-2 mb-4">
           <Settings className="h-4 w-4 text-gray-400" />
           <h2 className="text-sm font-medium text-gray-300 uppercase tracking-wider">
@@ -50,13 +50,13 @@ export default async function DashboardPage() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <Link
             href="/"
-            className="rounded-lg border border-white/8 bg-gray-900/40 p-4 text-sm text-gray-300 transition-colors hover:border-blue-500/40 hover:text-white"
+            className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4 text-sm text-gray-300 transition-all hover:border-blue-500/30 hover:bg-white/[0.06] hover:text-white"
           >
             View Today&apos;s Movers &rarr;
           </Link>
           <a
             href="/api/auth/logout"
-            className="rounded-lg border border-white/8 bg-gray-900/40 p-4 text-sm text-gray-300 transition-colors hover:border-red-500/40 hover:text-white"
+            className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-4 text-sm text-gray-300 transition-all hover:border-red-500/30 hover:bg-white/[0.06] hover:text-white"
           >
             Sign Out &rarr;
           </a>

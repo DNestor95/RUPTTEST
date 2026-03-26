@@ -12,6 +12,20 @@ export default function DataConfidenceBadge({
   discrepancy,
   className,
 }: DataConfidenceBadgeProps) {
+  const textColor =
+    sources.length >= 3
+      ? "text-emerald-400"
+      : sources.length === 2
+      ? "text-yellow-400"
+      : "text-red-400";
+
+  const bgColor =
+    sources.length >= 3
+      ? "bg-emerald-400/10"
+      : sources.length === 2
+      ? "bg-yellow-400/10"
+      : "bg-red-400/10";
+
   return (
     <div className={clsx("flex items-center gap-1", className)}>
       {discrepancy && (
@@ -21,12 +35,9 @@ export default function DataConfidenceBadge({
       )}
       <span
         className={clsx(
-          "text-xs",
-          sources.length >= 3
-            ? "text-emerald-400"
-            : sources.length === 2
-            ? "text-yellow-400"
-            : "text-red-400"
+          "rounded-full px-2 py-0.5 text-[10px] font-medium",
+          textColor,
+          bgColor
         )}
         title={`Sources: ${sources.join(", ")}`}
       >
