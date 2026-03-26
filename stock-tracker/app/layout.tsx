@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BluePulse — Blue Chip Stock Tracker",
+  title: "BlueTracker — Blue Chip Stock Tracker",
   description:
     "Track major moves in blue chip stocks across the Dow Jones, S&P 500, and NASDAQ with cross-referenced data from Finnhub, Alpha Vantage, and Polygon.",
 };
@@ -35,7 +35,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-1">{children}</main>
           <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-gray-400">
-            BluePulse — Data provided by Finnhub, Alpha Vantage &amp; Polygon.io.
+            BlueTracker — Data provided by Finnhub, Alpha Vantage &amp; Polygon.io.
             Not financial advice.
           </footer>
         </Auth0Provider>

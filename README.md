@@ -2,7 +2,7 @@
 TEST RUPT
 contribution
 
-## BluePulse — Stock Tracker
+## BlueTracker — Stock Tracker
 
 The main application lives in the `stock-tracker/` directory. It is a Next.js app deployed on Vercel.
 

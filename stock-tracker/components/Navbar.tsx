@@ -15,7 +15,7 @@ export default function Navbar() {
           <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/20 ring-1 ring-blue-500/30">
             <TrendingUp className="h-4 w-4 text-blue-400" />
           </div>
-          <span className="text-lg tracking-tight">BluePulse</span>
+          <span className="text-lg tracking-tight">BlueTracker</span>
         </Link>
 
         {/* Nav links */}

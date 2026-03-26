@@ -45,7 +45,7 @@ export default function LoginPage() {
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/20 ring-1 ring-blue-500/30">
             <TrendingUp className="h-6 w-6 text-blue-400" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Sign in to BluePulse</h1>
+          <h1 className="text-2xl font-bold text-white">Sign in to BlueTracker</h1>
           <p className="text-sm text-gray-400">Track major moves in blue chip stocks</p>
         </div>
 
