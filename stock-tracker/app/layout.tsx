@@ -34,7 +34,7 @@ export default function RootLayout({
         <Auth0Provider>
           <Navbar />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-gray-600">
+          <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-gray-400">
             BluePulse — Data provided by Finnhub, Alpha Vantage &amp; Polygon.io.
             Not financial advice.
           </footer>

@@ -40,7 +40,7 @@ export default function StockCard({ stock }: StockCardProps) {
               {stock.name}
             </h3>
             {stock.sector && (
-              <span className="text-xs text-gray-500">{stock.sector}</span>
+              <span className="text-xs text-gray-400">{stock.sector}</span>
             )}
           </div>
           <DataConfidenceBadge
@@ -74,13 +74,13 @@ export default function StockCard({ stock }: StockCardProps) {
         {/* Fundamentals row */}
         <div className="grid grid-cols-3 gap-2 border-t border-white/[0.06] pt-3 text-center">
           <div>
-            <p className="text-xs text-gray-500">P/E</p>
+            <p className="text-xs text-gray-400">P/E</p>
             <p className="text-xs font-medium text-gray-200">
               {stock.pe !== null ? stock.pe.toFixed(1) : "—"}
             </p>
           </div>
           <div>
-            <p className="text-xs text-gray-500">Div Yield</p>
+            <p className="text-xs text-gray-400">Div Yield</p>
             <p className="text-xs font-medium text-gray-200">
               {stock.dividendYield !== null
                 ? `${stock.dividendYield.toFixed(2)}%`
@@ -88,7 +88,7 @@ export default function StockCard({ stock }: StockCardProps) {
             </p>
           </div>
           <div>
-            <p className="text-xs text-gray-500">Mkt Cap</p>
+            <p className="text-xs text-gray-400">Mkt Cap</p>
             <p className="text-xs font-medium text-gray-200">
               {fmtMarketCap(stock.marketCap)}
             </p>

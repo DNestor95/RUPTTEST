@@ -33,7 +33,7 @@ export default async function DashboardPage() {
             Preferences
           </h2>
         </div>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-gray-400 mb-4">
           Your alert threshold is stored in your browser. Adjust it on the{" "}
           <Link href="/" className="text-blue-400 hover:underline">
             Markets page
@@ -44,7 +44,7 @@ export default async function DashboardPage() {
 
       {/* Quick links */}
       <div className="mt-6">
-        <h2 className="mb-3 text-sm font-medium text-gray-500 uppercase tracking-wider">
+        <h2 className="mb-3 text-sm font-medium text-gray-400 uppercase tracking-wider">
           Quick Links
         </h2>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
