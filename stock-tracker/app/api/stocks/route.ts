@@ -7,7 +7,7 @@ export const revalidate = 60;
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const threshold = parseFloat(searchParams.get("threshold") ?? "3");
+  const threshold = parseFloat(searchParams.get("threshold") ?? "5");
   const limit = parseInt(searchParams.get("limit") ?? "50", 10);
 
   // Batch tickers in groups of 5 to avoid hammering rate limits simultaneously

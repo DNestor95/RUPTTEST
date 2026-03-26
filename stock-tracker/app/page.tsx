@@ -8,7 +8,7 @@ import ThresholdSlider from "@/components/ThresholdSlider";
 import { TrendingUp, RefreshCw } from "lucide-react";
 
 const THRESHOLD_KEY = "bluepulse_threshold";
-const DEFAULT_THRESHOLD = 3;
+const DEFAULT_THRESHOLD = 5;
 
 const fetcher = (url: string) =>
   fetch(url).then((r) => {
