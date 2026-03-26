@@ -133,7 +133,7 @@ export default function StockDetailPage() {
           </span>
           <h1 className="mt-1 text-3xl font-bold text-white">{stock.name}</h1>
           {stock.sector && (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-400">
               {stock.sector}
               {stock.industry ? ` — ${stock.industry}` : ""}
             </p>
@@ -222,7 +222,7 @@ export default function StockDetailPage() {
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3">
           {metrics.map((m) => (
             <div key={m.label}>
-              <p className="text-xs text-gray-500">{m.label}</p>
+              <p className="text-xs text-gray-400">{m.label}</p>
               <p className="mt-0.5 text-sm font-medium text-white">{m.value}</p>
             </div>
           ))}
@@ -230,7 +230,7 @@ export default function StockDetailPage() {
       </div>
 
       {/* Data sources */}
-      <p className="mt-6 text-xs text-gray-600">
+      <p className="mt-6 text-xs text-gray-400">
         Data from: {stock.sources.join(", ")}
         {stock.priceDiscrepancy && (
           <span className="text-amber-500/80">

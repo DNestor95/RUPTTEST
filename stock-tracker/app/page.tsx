@@ -68,7 +68,7 @@ export default function HomePage() {
         <ThresholdSlider value={threshold} onChange={handleThresholdChange} />
         <div className="flex items-center gap-4">
           {fetchedAt && (
-            <span className="text-xs text-gray-600">Updated {fetchedAt}</span>
+            <span className="text-xs text-gray-400">Updated {fetchedAt}</span>
           )}
           <button
             onClick={() => mutate()}
@@ -100,7 +100,7 @@ export default function HomePage() {
         </div>
       ) : (
         <>
-          <p className="mb-4 text-sm text-gray-500">
+          <p className="mb-4 text-sm text-gray-400">
             {movers.length} stock{movers.length !== 1 ? "s" : ""} moved ≥{" "}
             {threshold.toFixed(1)}% today
           </p>

@@ -19,7 +19,7 @@ export default function PEGYBadge({ pegy, className }: PEGYBadgeProps) {
 
   return (
     <div className={clsx("flex flex-col items-start gap-0.5", className)}>
-      <span className="text-[10px] font-medium text-gray-500 uppercase tracking-wider">PEGY</span>
+      <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wider">PEGY</span>
       <span className={clsx("text-sm font-bold", textColor)}>
         {pegy !== null ? pegy.toFixed(2) : "—"}
       </span>
