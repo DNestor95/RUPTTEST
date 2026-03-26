@@ -52,10 +52,10 @@ export default function StockDetailPage() {
   if (isLoading) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-        <div className="h-8 w-32 animate-pulse rounded bg-gray-800 mb-6" />
+        <div className="h-8 w-32 animate-pulse rounded-full bg-white/[0.06] mb-6" />
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-28 animate-pulse rounded-xl bg-gray-800/60" />
+            <div key={i} className="h-28 animate-pulse rounded-2xl bg-white/[0.04]" />
           ))}
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function StockDetailPage() {
       </div>
 
       {/* Price hero */}
-      <div className="mb-8 flex flex-wrap items-end gap-6 rounded-xl border border-white/8 bg-gray-900/60 px-6 py-5">
+      <div className="mb-8 flex flex-wrap items-end gap-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-6 py-5">
         <div>
           <p className="text-4xl font-bold text-white">${fmt(stock.price)}</p>
           <p
@@ -168,7 +168,7 @@ export default function StockDetailPage() {
       </div>
 
       {/* OHLC Bar Chart */}
-      <div className="mb-8 rounded-xl border border-white/8 bg-gray-900/60 p-5">
+      <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
         <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-gray-400">
           Today&apos;s OHLC
         </h2>
@@ -189,14 +189,14 @@ export default function StockDetailPage() {
             />
             <Tooltip
               contentStyle={{
-                background: "#111827",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 8,
+                background: "#0f172a",
+                border: "1px solid rgba(255,255,255,0.08)",
+                borderRadius: 12,
                 color: "#fff",
               }}
               formatter={(v) => (v != null ? [`$${fmt(v as number)}`, ""] : ["-", ""])}
             />
-            <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
               {ohlcData.map((entry, index) => (
                 <Cell
                   key={index}
@@ -215,11 +215,11 @@ export default function StockDetailPage() {
       </div>
 
       {/* Fundamentals table */}
-      <div className="rounded-xl border border-white/8 bg-gray-900/60 p-5">
+      <div className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
         <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-gray-400">
           Fundamentals
         </h2>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3">
           {metrics.map((m) => (
             <div key={m.label}>
               <p className="text-xs text-gray-500">{m.label}</p>

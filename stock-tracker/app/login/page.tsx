@@ -41,22 +41,25 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="mb-8 flex flex-col items-center gap-2 text-center">
-          <TrendingUp className="h-8 w-8 text-blue-400" />
+        <div className="mb-8 flex flex-col items-center gap-3 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/20 ring-1 ring-blue-500/30">
+            <TrendingUp className="h-6 w-6 text-blue-400" />
+          </div>
           <h1 className="text-2xl font-bold text-white">Sign in to BluePulse</h1>
+          <p className="text-sm text-gray-500">Track major moves in blue chip stocks</p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-xl border border-white/10 bg-gray-900/60 p-6 space-y-4"
+          className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-6 space-y-5"
         >
           {error && (
-            <p className="rounded-md bg-red-500/10 border border-red-500/30 px-3 py-2 text-sm text-red-400">
+            <p className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-400">
               {error}
             </p>
           )}
 
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider">
               Username
             </label>
@@ -66,12 +69,12 @@ export default function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               autoComplete="username"
-              className="w-full rounded-md border border-white/10 bg-gray-800 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-600 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
               placeholder="admin"
             />
           </div>
 
-          <div className="space-y-1">
+          <div className="space-y-1.5">
             <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider">
               Password
             </label>
@@ -81,7 +84,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full rounded-md border border-white/10 bg-gray-800 px-3 py-2 text-sm text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-600 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
               placeholder="••••••••"
             />
           </div>
@@ -89,7 +92,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-full bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>
