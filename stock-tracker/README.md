@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment Variables
+
+This app requires three API keys to fetch stock data. Copy `.env.example` to `.env.local` and fill in your keys:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Description |
+|---|---|
+| `FINNHUB_API_KEY` | API key from [Finnhub](https://finnhub.io/) |
+| `ALPHA_VANTAGE_KEY` | API key from [Alpha Vantage](https://www.alphavantage.co/) |
+| `POLYGON_API_KEY` | API key from [Polygon.io](https://polygon.io/) |
+
+For Vercel deployments, add these in **Project Settings → Environment Variables** in the Vercel dashboard.
+
 ## Getting Started
 
 First, run the development server:
