@@ -2,11 +2,13 @@
 
 import useSWR from "swr";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import { AggregatedStock } from "@/lib/apis/aggregator";
 import PEGYBadge from "@/components/PEGYBadge";
 import DataConfidenceBadge from "@/components/DataConfidenceBadge";
-import { TrendingUp, TrendingDown, ArrowLeft } from "lucide-react";
+import HistoricalComparison from "@/components/HistoricalComparison";
+import { TrendingUp, TrendingDown, ArrowLeft, History } from "lucide-react";
 import clsx from "clsx";
 import {
   ResponsiveContainer,
@@ -44,6 +46,7 @@ function fmtMarketCap(n: number | null): string {
 export default function StockDetailPage() {
   const params = useParams<{ ticker: string }>();
   const ticker = params?.ticker?.toUpperCase() ?? "";
+  const [showHistory, setShowHistory] = useState(false);
 
   const { data: stock, error, isLoading } = useSWR<AggregatedStock>(
     ticker ? `/api/stocks/${ticker}` : null,
@@ -170,8 +173,35 @@ export default function StockDetailPage() {
           {positive ? "+" : ""}
           {stock.changePercent.toFixed(2)}%
         </p>
-        <PEGYBadge pegy={stock.pegy} className="items-center" />
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <PEGYBadge pegy={stock.pegy} className="items-center" />
+          <button
+            onClick={() => setShowHistory((v) => !v)}
+            className={clsx(
+              "flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-semibold transition-colors",
+              showHistory
+                ? "bg-purple-500/20 text-purple-300 hover:bg-purple-500/30"
+                : "bg-white/[0.06] text-gray-400 hover:bg-white/[0.10] hover:text-white"
+            )}
+          >
+            <History className="h-3.5 w-3.5" />
+            {showHistory ? "Hide" : "Compare"} 1 Year Ago
+          </button>
+        </div>
       </div>
+
+      {/* Year-over-year comparison (toggled) */}
+      {showHistory && (
+        <HistoricalComparison
+          ticker={ticker}
+          currentPrice={stock.price}
+          currentOpen={stock.priceOpen}
+          currentHigh={stock.priceHigh}
+          currentLow={stock.priceLow}
+          currentVolume={stock.volume}
+          currentChangePercent={stock.changePercent}
+        />
+      )}
 
       {/* 30-Day Price History */}
       {history && history.length > 0 && (() => {
@@ -179,63 +209,55 @@ export default function StockDetailPage() {
           history[history.length - 1].close >= history[0].close;
         const chartColor = historyPositive ? "#34d399" : "#f87171";
         return (
-        <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
-          <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-gray-400">
-            30-Day Price History
-          </h2>
-          <ResponsiveContainer width="100%" height={200}>
-            <AreaChart data={history} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
-              <defs>
-                <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor={chartColor}
-                    stopOpacity={0.3}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor={chartColor}
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              </defs>
-              <XAxis
-                dataKey="date"
-                tick={{ fill: "#9ca3af", fontSize: 11 }}
-                axisLine={false}
-                tickLine={false}
-                interval="preserveStartEnd"
-              />
-              <YAxis
-                domain={["auto", "auto"]}
-                tick={{ fill: "#9ca3af", fontSize: 11 }}
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(v) => `$${(v as number).toFixed(0)}`}
-                width={55}
-              />
-              <Tooltip
-                contentStyle={{
-                  background: "#0f172a",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: 12,
-                  color: "#fff",
-                }}
-                formatter={(v) =>
-                  v != null ? [`$${fmt(v as number)}`, "Close"] : ["-", "Close"]
-                }
-              />
-              <Area
-                type="monotone"
-                dataKey="close"
-                stroke={chartColor}
-                strokeWidth={2}
-                fill="url(#priceGradient)"
-                dot={false}
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        </div>
+          <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
+            <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-gray-400">
+              30-Day Price History
+            </h2>
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart data={history} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={chartColor} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="date"
+                  tick={{ fill: "#9ca3af", fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  interval="preserveStartEnd"
+                />
+                <YAxis
+                  domain={["auto", "auto"]}
+                  tick={{ fill: "#9ca3af", fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v) => `$${(v as number).toFixed(0)}`}
+                  width={55}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: "#0f172a",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: 12,
+                    color: "#fff",
+                  }}
+                  formatter={(v) =>
+                    v != null ? [`$${fmt(v as number)}`, "Close"] : ["-", "Close"]
+                  }
+                />
+                <Area
+                  type="monotone"
+                  dataKey="close"
+                  stroke={chartColor}
+                  strokeWidth={2}
+                  fill="url(#priceGradient)"
+                  dot={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         );
       })()}
 
