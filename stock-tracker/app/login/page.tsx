@@ -46,7 +46,7 @@ export default function LoginPage() {
             <TrendingUp className="h-6 w-6 text-blue-400" />
           </div>
           <h1 className="text-2xl font-bold text-white">Sign in to BluePulse</h1>
-          <p className="text-sm text-gray-500">Track major moves in blue chip stocks</p>
+          <p className="text-sm text-gray-400">Track major moves in blue chip stocks</p>
         </div>
 
         <form
@@ -69,7 +69,7 @@ export default function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               autoComplete="username"
-              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-600 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
+              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-500 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
               placeholder="admin"
             />
           </div>
@@ -84,7 +84,7 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-600 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
+              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-500 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
               placeholder="••••••••"
             />
           </div>
