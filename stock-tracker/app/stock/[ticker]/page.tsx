@@ -157,26 +157,24 @@ export default function StockDetailPage() {
       </div>
 
       {/* Price hero */}
-      <div className="mb-8 flex flex-wrap items-end gap-6 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-6 py-5">
-        <div>
-          <p className="text-4xl font-bold text-white">${fmt(stock.price)}</p>
-          <p
-            className={clsx(
-              "mt-1 flex items-center gap-1 text-lg font-semibold",
-              positive ? "text-emerald-400" : "text-red-400"
-            )}
-          >
-            {positive ? (
-              <TrendingUp className="h-5 w-5" />
-            ) : (
-              <TrendingDown className="h-5 w-5" />
-            )}
-            {positive ? "+" : ""}
-            {stock.changePercent.toFixed(2)}%
-          </p>
-        </div>
-        <div className="flex flex-1 flex-wrap items-center justify-end gap-3">
-          <PEGYBadge pegy={stock.pegy} />
+      <div className="mb-8 flex flex-col items-center gap-2 rounded-2xl border border-white/[0.07] bg-white/[0.03] px-6 py-5">
+        <p className="text-4xl font-bold text-white">${fmt(stock.price)}</p>
+        <p
+          className={clsx(
+            "flex items-center gap-1 text-lg font-semibold",
+            positive ? "text-emerald-400" : "text-red-400"
+          )}
+        >
+          {positive ? (
+            <TrendingUp className="h-5 w-5" />
+          ) : (
+            <TrendingDown className="h-5 w-5" />
+          )}
+          {positive ? "+" : ""}
+          {stock.changePercent.toFixed(2)}%
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <PEGYBadge pegy={stock.pegy} className="items-center" />
           <button
             onClick={() => setShowHistory((v) => !v)}
             className={clsx(
@@ -204,6 +202,64 @@ export default function StockDetailPage() {
           currentChangePercent={stock.changePercent}
         />
       )}
+
+      {/* 30-Day Price History */}
+      {history && history.length > 0 && (() => {
+        const historyPositive =
+          history[history.length - 1].close >= history[0].close;
+        const chartColor = historyPositive ? "#34d399" : "#f87171";
+        return (
+          <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">
+            <h2 className="mb-4 text-sm font-medium uppercase tracking-wider text-gray-400">
+              30-Day Price History
+            </h2>
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart data={history} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+                <defs>
+                  <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor={chartColor} stopOpacity={0.3} />
+                    <stop offset="95%" stopColor={chartColor} stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis
+                  dataKey="date"
+                  tick={{ fill: "#9ca3af", fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  interval="preserveStartEnd"
+                />
+                <YAxis
+                  domain={["auto", "auto"]}
+                  tick={{ fill: "#9ca3af", fontSize: 11 }}
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(v) => `$${(v as number).toFixed(0)}`}
+                  width={55}
+                />
+                <Tooltip
+                  contentStyle={{
+                    background: "#0f172a",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                    borderRadius: 12,
+                    color: "#fff",
+                  }}
+                  formatter={(v) =>
+                    v != null ? [`$${fmt(v as number)}`, "Close"] : ["-", "Close"]
+                  }
+                />
+                <Area
+                  type="monotone"
+                  dataKey="close"
+                  stroke={chartColor}
+                  strokeWidth={2}
+                  fill="url(#priceGradient)"
+                  dot={false}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        );
+      })()}
 
       {/* OHLC Bar Chart */}
       <div className="mb-8 rounded-2xl border border-white/[0.07] bg-white/[0.03] p-5">

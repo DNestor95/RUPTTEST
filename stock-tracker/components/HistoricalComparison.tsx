@@ -104,7 +104,7 @@ export default function HistoricalComparison({
   currentChangePercent,
 }: Props) {
   const { data: historical, error, isLoading } = useSWR<HistoricalDayData>(
-    `/api/stocks/${ticker}/history`,
+    `/api/stocks/${ticker}/yearago`,
     fetcher,
     { revalidateOnFocus: false }
   );
