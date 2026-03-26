@@ -25,6 +25,32 @@ function apiKey(): string {
   return key;
 }
 
+export interface PolygonDailyBar {
+  date: string;
+  close: number;
+}
+
+export async function polygonHistoricalPrices(
+  ticker: string,
+  days: number = 30
+): Promise<PolygonDailyBar[]> {
+  const to = new Date();
+  const from = new Date();
+  from.setDate(from.getDate() - days);
+  const toStr = to.toISOString().split("T")[0];
+  const fromStr = from.toISOString().split("T")[0];
+  const url = `${BASE}/v2/aggs/ticker/${encodeURIComponent(ticker)}/range/1/day/${fromStr}/${toStr}?adjusted=true&sort=asc&limit=50&apiKey=${apiKey()}`;
+  const res = await fetch(url, { next: { revalidate: 3600 } });
+  if (!res.ok) throw new Error(`Polygon history failed for ${ticker}: ${res.status}`);
+  const data = await res.json();
+  if (!data.results || data.results.length === 0)
+    throw new Error(`No history data for ${ticker}`);
+  return data.results.map((r: { t: number; c: number }) => ({
+    date: new Date(r.t).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }),
+    close: r.c,
+  }));
+}
+
 export async function polygonPrevClose(ticker: string): Promise<PolygonPrevClose> {
   const url = `${BASE}/v2/aggs/ticker/${encodeURIComponent(ticker)}/prev?adjusted=true&apiKey=${apiKey()}`;
   const res = await fetch(url, { next: { revalidate: 60 } });

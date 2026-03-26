@@ -18,6 +18,8 @@ import {
   YAxis,
   Tooltip,
   Cell,
+  AreaChart,
+  Area,
 } from "recharts";
 
 const fetcher = (url: string) =>
@@ -52,10 +54,16 @@ export default function StockDetailPage() {
     { refreshInterval: 60_000 }
   );
 
+  const { data: history } = useSWR<Array<{ date: string; close: number }>>(
+    ticker ? `/api/stocks/${ticker}/history` : null,
+    fetcher,
+    { revalidateOnFocus: false }
+  );
+
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-        <div className="h-8 w-32 animate-pulse rounded-full bg-white/[0.06] mb-6" />
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 text-center">
+        <div className="h-8 w-32 animate-pulse rounded-full bg-white/[0.06] mb-6 mx-auto" />
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="h-28 animate-pulse rounded-2xl bg-white/[0.04]" />
@@ -67,8 +75,8 @@ export default function StockDetailPage() {
 
   if (error || !stock) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
-        <Link href="/" className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white mb-6">
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 text-center">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white mb-6">
           <ArrowLeft className="h-4 w-4" /> Back to Markets
         </Link>
         <p className="text-red-400">
@@ -118,30 +126,30 @@ export default function StockDetailPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 text-center">
       {/* Back */}
-      <Link
-        href="/"
-        className="mb-6 flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-white"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to Markets
-      </Link>
+      <div className="mb-6 flex justify-center">
+        <Link
+          href="/"
+          className="flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-white"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Markets
+        </Link>
+      </div>
 
       {/* Header */}
-      <div className="mb-8 flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <span className="text-xs font-mono font-bold tracking-widest text-blue-400">
-            {stock.ticker}
-          </span>
-          <h1 className="mt-1 text-3xl font-bold text-white">{stock.name}</h1>
-          {stock.sector && (
-            <p className="text-sm text-gray-500">
-              {stock.sector}
-              {stock.industry ? ` — ${stock.industry}` : ""}
-            </p>
-          )}
-        </div>
+      <div className="mb-8 flex flex-col items-center gap-2">
+        <span className="text-xs font-mono font-bold tracking-widest text-blue-400">
+          {stock.ticker}
+        </span>
+        <h1 className="text-3xl font-bold text-white">{stock.name}</h1>
+        {stock.sector && (
+          <p className="text-sm text-gray-400">
+            {stock.sector}
+            {stock.industry ? ` — ${stock.industry}` : ""}
+          </p>
+        )}
         <DataConfidenceBadge
           sources={stock.sources}
           discrepancy={stock.priceDiscrepancy}
@@ -215,7 +223,7 @@ export default function StockDetailPage() {
               tick={{ fill: "#9ca3af", fontSize: 11 }}
               axisLine={false}
               tickLine={false}
-              tickFormatter={(v) => `$${v.toFixed(0)}`}
+              tickFormatter={(v) => `$${(v as number).toFixed(0)}`}
             />
             <Tooltip
               contentStyle={{
@@ -252,7 +260,7 @@ export default function StockDetailPage() {
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3">
           {metrics.map((m) => (
             <div key={m.label}>
-              <p className="text-xs text-gray-500">{m.label}</p>
+              <p className="text-xs text-gray-400">{m.label}</p>
               <p className="mt-0.5 text-sm font-medium text-white">{m.value}</p>
             </div>
           ))}
@@ -260,7 +268,7 @@ export default function StockDetailPage() {
       </div>
 
       {/* Data sources */}
-      <p className="mt-6 text-xs text-gray-600">
+      <p className="mt-6 text-xs text-gray-400">
         Data from: {stock.sources.join(", ")}
         {stock.priceDiscrepancy && (
           <span className="text-amber-500/80">

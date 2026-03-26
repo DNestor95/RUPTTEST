@@ -10,7 +10,7 @@ export default function StockGrid({ stocks }: StockGridProps) {
     return (
       <div className="flex flex-col items-center justify-center py-24 text-center">
         <p className="text-lg font-medium text-gray-400">No movers found</p>
-        <p className="mt-1 text-sm text-gray-600">
+        <p className="mt-1 text-sm text-gray-400">
           Try lowering the change threshold.
         </p>
       </div>
