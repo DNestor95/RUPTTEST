@@ -18,9 +18,9 @@ import {
   YAxis,
   Tooltip,
   Cell,
-  AreaChart,
-  Area,
+  TooltipProps,
 } from "recharts";
+import { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
 
 const fetcher = (url: string) =>
   fetch(url).then((r) => {
@@ -34,6 +34,38 @@ function fmt(n: number | null | undefined): string {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
+}
+
+const OHLC_COLORS: Record<string, string> = {
+  High: "#34d399",
+  Low: "#f87171",
+  Open: "#3b82f6",
+  Close: "#3b82f6",
+};
+
+function OhlcTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
+  if (!active || !payload?.length) return null;
+  const { label, value } = payload[0].payload as { label: string; value: number };
+  const color = OHLC_COLORS[label] ?? "#fff";
+  return (
+    <div
+      style={{
+        background: "#0f172a",
+        border: "1px solid rgba(255,255,255,0.12)",
+        borderRadius: 10,
+        padding: "10px 16px",
+        minWidth: 120,
+        boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
+      }}
+    >
+      <p style={{ color: "#9ca3af", fontSize: 11, fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 4 }}>
+        {label}
+      </p>
+      <p style={{ color, fontSize: 22, fontWeight: 700, letterSpacing: "0.01em" }}>
+        {value != null ? `$${fmt(value)}` : "—"}
+      </p>
+    </div>
+  );
 }
 
 function fmtMarketCap(n: number | null): string {
@@ -282,13 +314,8 @@ export default function StockDetailPage() {
               tickFormatter={(v) => `$${(v as number).toFixed(0)}`}
             />
             <Tooltip
-              contentStyle={{
-                background: "#0f172a",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 12,
-                color: "#fff",
-              }}
-              formatter={(v) => (v != null ? [`$${fmt(v as number)}`, ""] : ["-", ""])}
+              cursor={false}
+              content={<OhlcTooltip />}
             />
             <Bar dataKey="value" radius={[6, 6, 0, 0]}>
               {ohlcData.map((entry, index) => (
