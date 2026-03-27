@@ -12,15 +12,17 @@ import { TrendingUp, TrendingDown, ArrowLeft, History } from "lucide-react";
 import clsx from "clsx";
 import {
   ResponsiveContainer,
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   Tooltip,
   Cell,
-  TooltipProps,
 } from "recharts";
 import { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import { TooltipContentProps } from "recharts/types/component/Tooltip";
 
 const fetcher = (url: string) =>
   fetch(url).then((r) => {
@@ -43,7 +45,7 @@ const OHLC_COLORS: Record<string, string> = {
   Close: "#3b82f6",
 };
 
-function OhlcTooltip({ active, payload }: TooltipProps<ValueType, NameType>) {
+function OhlcTooltip({ active, payload }: TooltipContentProps<ValueType, NameType>) {
   if (!active || !payload?.length) return null;
   const { label, value } = payload[0].payload as { label: string; value: number };
   const color = OHLC_COLORS[label] ?? "#fff";
@@ -315,7 +317,7 @@ export default function StockDetailPage() {
             />
             <Tooltip
               cursor={false}
-              content={<OhlcTooltip />}
+              content={OhlcTooltip}
             />
             <Bar dataKey="value" radius={[6, 6, 0, 0]}>
               {ohlcData.map((entry, index) => (
