@@ -2,10 +2,6 @@
 name: Frontend Design Specialist
 description: Designs and implements visually distinctive, production-grade frontend interfaces using the repository's frontend design skill.
 model: claude-4.6-sonnet
-tools:
-  - codebase
-  - terminal
-  - github
 ---
 
 # Purpose
