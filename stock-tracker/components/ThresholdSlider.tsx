@@ -22,9 +22,14 @@ export default function ThresholdSlider({ value, onChange }: ThresholdSliderProp
 
   return (
     <div className="flex items-center gap-4">
-      <label className="whitespace-nowrap text-sm text-gray-400">
-        Showing moves{" "}
-        <span className="font-semibold text-white">≥ {local.toFixed(1)}%</span>
+      <label className="whitespace-nowrap text-sm" style={{ color: "var(--text-secondary)" }}>
+        Show moves ≥{" "}
+        <span
+          className="font-bold tabular-nums"
+          style={{ color: "var(--text-primary)" }}
+        >
+          {local.toFixed(1)}%
+        </span>
       </label>
       <input
         type="range"
@@ -33,7 +38,8 @@ export default function ThresholdSlider({ value, onChange }: ThresholdSliderProp
         step={0.5}
         value={local}
         onChange={handleChange}
-        className="w-40 cursor-pointer"
+        className="w-36 cursor-pointer"
+        aria-label="Minimum change threshold"
       />
     </div>
   );

@@ -1,8 +1,33 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ──────────────────────────────────────────────────────── */
 :root {
   --background: #ffffff;
   --foreground: #000000;
+
+  /* Surface hierarchy */
+  --surface-base:    #020c1b;
+  --surface-card:    #071020;
+  --surface-hover:   #0c1a30;
+  --surface-raised:  #0f2040;
+
+  /* Borders */
+  --border-subtle:   rgba(30, 70, 120, 0.35);
+  --border-default:  rgba(40, 90, 150, 0.5);
+  --border-focus:    rgba(59, 130, 246, 0.6);
+
+  /* Accent palette */
+  --accent-blue:     #3b82f6;
+  --accent-blue-dim: rgba(59, 130, 246, 0.15);
+  --accent-up:       #34d399;
+  --accent-up-dim:   rgba(52, 211, 153, 0.12);
+  --accent-down:     #f87171;
+  --accent-down-dim: rgba(248, 113, 113, 0.12);
+
+  /* Text hierarchy */
+  --text-primary:   #f0f6ff;
+  --text-secondary: #7ea8d8;
+  --text-muted:     #3d6494;
 }
 
 @theme inline {
@@ -12,60 +37,91 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #030712;
-    --foreground: #ffffff;
-  }
-}
-
+/* ─── Base ───────────────────────────────────────────────────────────────── */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--surface-base);
+  color: var(--text-primary);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+
+  /* Layered background: dot grid + ambient radial glow */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(59, 130, 246, 0.07) 0%, transparent 55%),
+    radial-gradient(circle at 1px 1px, rgba(99, 150, 220, 0.07) 1px, transparent 0);
+  background-size: 100% 100%, 100% 100%, 28px 28px;
+  background-attachment: fixed, fixed, fixed;
 }
 
-/* Smooth scrollbar */
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  scrollbar-color: rgba(59, 130, 246, 0.2) transparent;
 }
 
-/* Modern range input */
+/* ─── Tabular nums for financial data ───────────────────────────────────── */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Card glow utility ──────────────────────────────────────────────────── */
+.card-glow-up {
+  box-shadow: inset 3px 0 0 var(--accent-up), 0 0 20px rgba(52, 211, 153, 0.06);
+}
+.card-glow-down {
+  box-shadow: inset 3px 0 0 var(--accent-down), 0 0 20px rgba(248, 113, 113, 0.06);
+}
+
+/* ─── Range input ────────────────────────────────────────────────────────── */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  height: 4px;
+  height: 3px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border-default);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  height: 16px;
-  width: 16px;
+  height: 14px;
+  width: 14px;
   border-radius: 9999px;
-  background: #3b82f6;
-  margin-top: -6px;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  background: var(--accent-blue);
+  margin-top: -5.5px;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 8px rgba(59, 130, 246, 0.4);
   transition: box-shadow 0.15s ease;
 }
 input[type="range"]:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.35), 0 0 12px rgba(59, 130, 246, 0.5);
 }
 input[type="range"]::-moz-range-track {
-  height: 4px;
+  height: 3px;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--border-default);
 }
 input[type="range"]::-moz-range-thumb {
   border: none;
-  height: 16px;
-  width: 16px;
+  height: 14px;
+  width: 14px;
   border-radius: 9999px;
-  background: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  background: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25), 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* ─── Shimmer skeleton ───────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.03) 25%,
+    rgba(59,130,246,0.07) 50%,
+    rgba(255,255,255,0.03) 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
 }
