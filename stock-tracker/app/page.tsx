@@ -44,7 +44,7 @@ export default function HomePage() {
     : null;
 
   const gainers = movers.filter(s => s.changePercent >= 0).length;
-  const losers  = movers.filter(s => s.changePercent < 0).length;
+  const losers = movers.filter(s => s.changePercent < 0).length;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
