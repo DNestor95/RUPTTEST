@@ -21,11 +21,11 @@ export default function RootLayout({
       lang="en"
       className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#030712] text-white">
+      <body className="min-h-full flex flex-col text-white" style={{ background: "var(--surface-base)" }}>
         <Auth0Provider>
           <Navbar />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-white/[0.06] py-8 text-center text-xs text-gray-400">
+          <footer className="border-t py-8 text-center text-xs" style={{ borderColor: "var(--border-subtle)", color: "var(--text-muted)" }}>
             BlueTracker — Data provided by Finnhub, Alpha Vantage &amp; Polygon.io.
             Not financial advice.
           </footer>

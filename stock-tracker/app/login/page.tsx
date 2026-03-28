@@ -39,28 +39,68 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm">
-        <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/20 ring-1 ring-blue-500/30">
-            <TrendingUp className="h-6 w-6 text-blue-400" />
+        {/* Brand header */}
+        <div className="mb-8 flex flex-col items-center gap-4 text-center">
+          <div
+            className="flex h-14 w-14 items-center justify-center rounded-2xl"
+            style={{
+              background: "linear-gradient(135deg, rgba(37,99,235,0.35) 0%, rgba(59,130,246,0.2) 100%)",
+              boxShadow: "0 0 20px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.08)",
+              border: "1px solid rgba(59,130,246,0.4)",
+            }}
+          >
+            <TrendingUp className="h-7 w-7 text-blue-400" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Sign in to BlueTracker</h1>
-          <p className="text-sm text-gray-400">Track major moves in blue chip stocks</p>
+          <div>
+            <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}>
+              Sign in to{" "}
+              <span
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                BlueTracker
+              </span>
+            </h1>
+            <p className="mt-1.5 text-sm" style={{ color: "var(--text-secondary)" }}>
+              Track major moves in blue chip stocks
+            </p>
+          </div>
         </div>
 
+        {/* Form card */}
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl border border-white/[0.07] bg-white/[0.03] p-6 space-y-5"
+          className="rounded-2xl p-6 space-y-5"
+          style={{
+            background: "var(--surface-card)",
+            border: "1px solid var(--border-subtle)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.4)",
+          }}
         >
           {error && (
-            <p className="rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-3 text-sm text-red-400">
+            <p
+              className="rounded-xl px-4 py-3 text-sm"
+              style={{
+                background: "rgba(248,113,113,0.08)",
+                border: "1px solid rgba(248,113,113,0.2)",
+                color: "#f87171",
+              }}
+            >
               {error}
             </p>
           )}
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider">
+            <label
+              className="block text-xs font-semibold uppercase tracking-wider"
+              style={{ color: "var(--text-muted)" }}
+            >
               Username
             </label>
             <input
@@ -69,13 +109,29 @@ export default function LoginPage() {
               onChange={(e) => setUsername(e.target.value)}
               required
               autoComplete="username"
-              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-500 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
+              className="w-full rounded-xl px-4 py-2.5 text-sm placeholder-gray-600 transition-all duration-150 outline-none"
+              style={{
+                background: "var(--surface-hover)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-primary)",
+              }}
+              onFocus={e => {
+                e.currentTarget.style.borderColor = "var(--border-focus)";
+                e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.12)";
+              }}
+              onBlur={e => {
+                e.currentTarget.style.borderColor = "var(--border-subtle)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
               placeholder="admin"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-medium text-gray-400 uppercase tracking-wider">
+            <label
+              className="block text-xs font-semibold uppercase tracking-wider"
+              style={{ color: "var(--text-muted)" }}
+            >
               Password
             </label>
             <input
@@ -84,7 +140,20 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               autoComplete="current-password"
-              className="w-full rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-2.5 text-sm text-white placeholder-gray-500 transition-colors focus:border-blue-500/50 focus:bg-white/[0.08] focus:outline-none focus:ring-1 focus:ring-blue-500/50"
+              className="w-full rounded-xl px-4 py-2.5 text-sm placeholder-gray-600 transition-all duration-150 outline-none"
+              style={{
+                background: "var(--surface-hover)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-primary)",
+              }}
+              onFocus={e => {
+                e.currentTarget.style.borderColor = "var(--border-focus)";
+                e.currentTarget.style.boxShadow = "0 0 0 3px rgba(59,130,246,0.12)";
+              }}
+              onBlur={e => {
+                e.currentTarget.style.borderColor = "var(--border-subtle)";
+                e.currentTarget.style.boxShadow = "none";
+              }}
               placeholder="••••••••"
             />
           </div>
@@ -92,7 +161,21 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-full bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full rounded-full py-2.5 text-sm font-semibold text-white transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              background: "linear-gradient(135deg, #2563eb, #3b82f6)",
+              boxShadow: "0 0 0 1px rgba(59,130,246,0.4), 0 4px 16px rgba(59,130,246,0.25)",
+            }}
+            onMouseEnter={e => {
+              if (!loading) {
+                e.currentTarget.style.boxShadow = "0 0 0 1px rgba(59,130,246,0.6), 0 4px 24px rgba(59,130,246,0.4)";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.boxShadow = "0 0 0 1px rgba(59,130,246,0.4), 0 4px 16px rgba(59,130,246,0.25)";
+              e.currentTarget.style.transform = "translateY(0)";
+            }}
           >
             {loading ? "Signing in…" : "Sign in"}
           </button>
